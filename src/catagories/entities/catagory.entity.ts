@@ -3,6 +3,7 @@ import {
   Column,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  CreateDateColumn,
 } from 'typeorm';
 
 @Entity('catagories')
@@ -16,7 +17,7 @@ export class Catagory {
   @Column({ length: 255 })
   describtion: string;
 
-  @Column()
+  @CreateDateColumn()
   createdAt: Date;
 
   @UpdateDateColumn()
