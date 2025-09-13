@@ -16,4 +16,8 @@ export class CreateProductDto {
   @IsInt()
   @Min(0)
   stock: number;
+
+  @Type(() => Number)
+  @IsInt()
+  catagoryId?: number;
 }
