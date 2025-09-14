@@ -1,7 +1,7 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestApplication, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import path from 'path';
+import {join} from 'path';
 
 
 async function bootstrap() {
@@ -12,7 +12,7 @@ async function bootstrap() {
     transform: true,
   }));
 
-  app.useStaticAssets(path.join(__dirname, '..', 'uploads'), {
+  app.useStaticAssets(join(__dirname, '..', 'uploads'), {
     prefix: '/uploads/',
   });
   app.enableCors();
