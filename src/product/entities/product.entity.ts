@@ -30,7 +30,7 @@ export class Product {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(() => Catagory, (catagory) => catagory.products, { onDelete: 'SET NULL', nullable: true })
+  @ManyToOne(() => Catagory, (catagory) => catagory.products, { onDelete: 'SET NULL', nullable: true ,eager:true})
   @JoinColumn({ name: 'catagoryId' })
   catagory?: Catagory | null;
 
