@@ -24,7 +24,7 @@ export class CategoryService {
         const category = this.categoryRepository.create({
             name,
             description,
-            imageUrl: `uploads/category/${image ? image.filename : ''}`
+            imageUrl: `uploads/categories/${image ? image.filename : ''}`
 
         });
         return this.categoryRepository.save(category);
