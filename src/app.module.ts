@@ -13,10 +13,10 @@ import { AppService } from './app.service';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: '2004',
-      database: 'eCommerce-nest',
+      password: 'Admin',
+      database: 'e-com-nestJS',
       autoLoadEntities: true,
-      synchronize: true, // ⚠️ Disable in production
+      synchronize: true, 
     }),
     UsersModule,
     ProductModule,
