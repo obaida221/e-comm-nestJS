@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateProductDto } from './dto/create-product.dto';
 import { Product } from './entities/product.entity';
-import { CatagoriesService } from '../catagories/catagories.service';
+import { CategoriesService } from '../categories/categories.service';
 
 
 @Injectable()
@@ -11,12 +11,12 @@ export class ProductsService {
   constructor(
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
-    private readonly catagoriesService: CatagoriesService,
+  private readonly categoriesService: CategoriesService,
   ) {}
 
   async create(CreateProductDto: CreateProductDto): Promise<Product> {
     const { name, description, price, stock } = CreateProductDto;
-    const { catagoryId } = CreateProductDto as any;
+  const { categoryId } = CreateProductDto as any;
     const existingProduct = await this.productRepository.findOne({
       where: { name: name },
     });
@@ -31,10 +31,10 @@ export class ProductsService {
       price: price,
       stock: stock,
     });
-    if (catagoryId) {
-      const cat = await this.catagoriesService.findOne(catagoryId);
-      product.catagory = cat;
-      product.catagoryId = cat.id;
+    if (categoryId) {
+      const cat = await this.categoriesService.findOne(categoryId);
+      product.category = cat;
+      product.categoryId = cat.id;
     }
     return this.productRepository.save(product);
   }
@@ -44,7 +44,7 @@ export class ProductsService {
       skip: offset,
       take: limit,
       order: { createdAt: 'DESC' },
-      relations: ['catagory'],
+  relations: ['category'],
     });
     return {
       data,
@@ -54,7 +54,7 @@ export class ProductsService {
   async findOne(id: number): Promise<Product> {
     const product = await this.productRepository.findOne({
       where: { id: id },
-      relations: ['catagory'],
+  relations: ['category'],
     });
     if (!product) {
       throw new NotFoundException('Product not found');
@@ -70,7 +70,7 @@ export class ProductsService {
       throw new NotFoundException(`Product with id ${id} not found`);
     }
     const { name, description, price, stock } = updateData;
-    const { catagoryId } = updateData as any;
+  const { categoryId } = updateData as any;
     if (name && name !== product.name) {
       const existingProduct = await this.productRepository.findOne({
         where: { name  },
@@ -82,14 +82,14 @@ export class ProductsService {
     if (description !== undefined) product.description = description;
     if (price !== undefined) product.price = price;
     if (stock !== undefined) product.stock = stock;
-    if (catagoryId !== undefined) {
-      if (catagoryId === null) {
-        product.catagory = null;
-        product.catagoryId = null;
+    if (categoryId !== undefined) {
+      if (categoryId === null) {
+        product.category = null;
+        product.categoryId = null;
       } else {
-        const cat = await this.catagoriesService.findOne(catagoryId);
-        product.catagory = cat;
-        product.catagoryId = cat.id;
+        const cat = await this.categoriesService.findOne(categoryId);
+        product.category = cat;
+        product.categoryId = cat.id;
       }
     }
     return this.productRepository.save(product);

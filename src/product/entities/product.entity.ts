@@ -6,7 +6,7 @@ import {
   CreateDateColumn,
 } from 'typeorm';
 import { ManyToOne, JoinColumn } from 'typeorm';
-import { Catagory } from '../../catagories/entities/catagory.entity';
+import { Category } from '../../categories/entities/category.entity';
 
 @Entity('Products')
 export class Product {
@@ -30,10 +30,10 @@ export class Product {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(() => Catagory, (catagory) => catagory.products, { onDelete: 'SET NULL', nullable: true ,eager:true})
-  @JoinColumn({ name: 'catagoryId' })
-  catagory?: Catagory | null;
+  @ManyToOne(() => Category, (category) => category.products, { onDelete: 'SET NULL', nullable: true ,eager:true})
+  @JoinColumn({ name: 'categoryId' })
+  category?: Category | null;
 
   @Column({ nullable: true })
-  catagoryId?: number | null;
+  categoryId?: number | null;
 }

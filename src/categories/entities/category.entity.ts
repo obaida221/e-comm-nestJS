@@ -8,8 +8,8 @@ import {
 import { OneToMany } from 'typeorm';
 import { Product } from '../../product/entities/product.entity';
 
-@Entity('catagories')
-export class Catagory {
+@Entity('categories')
+export class Category {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -17,7 +17,10 @@ export class Catagory {
   title: string;
 
   @Column({ length: 255 })
-  describtion: string;
+  description: string;
+
+  @Column({ nullable: true })
+  imgUrl: string;
 
   @CreateDateColumn()
   createdAt: Date;
@@ -25,6 +28,6 @@ export class Catagory {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToMany(() => Product, (product) => product.catagory)
+  @OneToMany(() => Product, (product) => product.category)
   products: Product[];
 }

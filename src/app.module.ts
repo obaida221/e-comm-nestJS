@@ -1,37 +1,27 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
-import { CatagoriesModule } from './catagories/catagories.module';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { ProductsModule } from './product/product.module';
-
+import { CategoryModule } from './category/category.module';
+import { ProductModule } from './products/product.module';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => ({
-        type: 'postgres',
-        host: config.get<string>('DB_HOST'),
-        port: config.get<number>('DB_PORT'),
-        username: config.get<string>('DB_USER'),
-        password: config.get<string>('DB_PASS'),
-        database: config.get<string>('DB_NAME'),
-        autoLoadEntities: true,
-        synchronize: true,
-      }),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: 'postgres',
+      password: '2004',
+      database: 'eCommerce-nest',
+      autoLoadEntities: true,
+      synchronize: true, // ⚠️ Disable in production
     }),
     UsersModule,
-    CatagoriesModule,
-    ProductsModule,
-  ],
+    ProductModule,
+    CategoryModule,],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

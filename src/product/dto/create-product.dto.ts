@@ -19,5 +19,5 @@ export class CreateProductDto {
 
   @Type(() => Number)
   @IsInt()
-  catagoryId?: number;
+  categoryId?: number;
 }
