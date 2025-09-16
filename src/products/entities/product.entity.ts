@@ -6,8 +6,10 @@ import {
     UpdateDateColumn,
     ManyToOne,
     JoinColumn,
+    OneToMany,
 } from 'typeorm';
 import { Category } from '../../category/entities/category.entity';
+import { ProductImage } from '../../product-images/entities/product-image.entity';
 
 @Entity('products')
 export class Product {
@@ -38,4 +40,7 @@ export class Product {
 
     @Column()
     categoryId: number;
+
+    @OneToMany(() => ProductImage, (img) => img.product, { cascade: true })
+    images?: ProductImage[];
 }
