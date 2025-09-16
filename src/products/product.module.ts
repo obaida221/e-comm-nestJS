@@ -12,4 +12,4 @@ import { CategoryModule } from '../category/category.module';
   providers: [ProductService],
   exports: [ProductService],
 })
-export class ProductModule { }
+export class ProductModule {}
