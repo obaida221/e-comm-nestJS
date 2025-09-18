@@ -20,7 +20,7 @@ import { UsersService } from '../users/users.service';
 export class AuthService {
   constructor(
     @InjectRepository(User)
-    private usersRepository: Repository<User>,
+
     private jwtService: JwtService,
     private usersService: UsersService,
   ) {}
