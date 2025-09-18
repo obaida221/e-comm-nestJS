@@ -15,6 +15,9 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { UseGuards } from '@nestjs/common';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { User, UserRole } from './entities/user.entity';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
 
 
 
@@ -25,7 +28,8 @@ export class UsersController {
     async create(@Body() createUserDto: CreateUserDto) {
         return this.usersService.create(createUserDto);
     }
-    @UseGuards(JwtAuthGuard)
+    // @UseGuards(JwtAuthGuard, RolesGuard)
+    @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN)
     @Get()
     async findAll(@Query('offset') offset: number = 1, @Query('limit') limit: number = 10) {
         return this.usersService.findAll(offset, limit);
