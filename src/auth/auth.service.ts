@@ -4,8 +4,6 @@ import {
   ConflictException, 
   BadRequestException 
 } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { User } from '../users/entities/user.entity';
@@ -19,8 +17,6 @@ import { UsersService } from '../users/users.service';
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(User)
-
     private jwtService: JwtService,
     private usersService: UsersService,
   ) {}
@@ -106,7 +102,7 @@ export class AuthService {
         return { message: 'Password changed successfully' };
       }
   async validateUser(payload: JwtPayload): Promise<User> {
-    const user = await this.usersService.findOne(payload.id );
+    const user = await this.usersService.getById(payload.id);
     if (!user) {
       throw new UnauthorizedException('User not found');
     }

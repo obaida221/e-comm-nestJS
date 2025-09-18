@@ -5,7 +5,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
 import { User } from '../../users/entities/user.entity';
-import { UsersService } from 'src/users/users.service';
 
 export interface JwtPayload {
   id: number;
@@ -17,7 +16,7 @@ export interface JwtPayload {
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     @InjectRepository(User)
-    private usersService: UsersService,
+    private usersRepository: Repository<User>,
     private configService: ConfigService,
   ) {
     super({
@@ -29,7 +28,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   async validate(payload: JwtPayload): Promise<User> {
     const { id } = payload;
-    const user = await this.usersService.findOne(id);
+    const user = await this.usersRepository.findOne({ where: { id } });
 
     if (!user) {
       throw new UnauthorizedException('Token not valid');

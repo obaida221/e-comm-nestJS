@@ -13,6 +13,8 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { UseGuards } from '@nestjs/common';
 
 
 
@@ -23,6 +25,7 @@ export class UsersController {
     async create(@Body() createUserDto: CreateUserDto) {
         return this.usersService.create(createUserDto);
     }
+    @UseGuards(JwtAuthGuard)
     @Get()
     async findAll(@Query('offset') offset: number = 1, @Query('limit') limit: number = 10) {
         return this.usersService.findAll(offset, limit);
