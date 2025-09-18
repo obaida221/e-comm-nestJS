@@ -11,8 +11,10 @@ import { AuthService } from './auth.service';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
-import { JwtAuthGuard, RolesGuard } from './guards';
-import { CurrentUser, Roles } from './decorators';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { RolesGuard } from './guards/roles.guard';
+import { CurrentUser } from './decorators/current-user.decorator';
+import { Roles } from './decorators/roles.decorator';
 import { User, UserRole } from '../users/entities/user.entity';
 
 @Controller('auth')
