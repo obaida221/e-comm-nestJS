@@ -18,14 +18,18 @@ import { UseGuards } from '@nestjs/common';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { User, UserRole } from './entities/user.entity';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
-import { ApiOperation } from '@nestjs/swagger';
-import { ApiResponse } from '@nestjs/swagger';
-import { ApiBody } from '@nestjs/swagger';
+import { 
+    ApiTags,
+    ApiOperation, 
+    ApiResponse, 
+    ApiBody, 
+    ApiQuery, 
+    ApiParam 
+} from '@nestjs/swagger';
 import { error } from 'console';
-import { ApiQuery } from '@nestjs/swagger';
-import { ApiParam } from '@nestjs/swagger';
 
 
+@ApiTags('Users')
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) { }

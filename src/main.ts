@@ -22,7 +22,11 @@ async function bootstrap() {
     .setTitle('E-Commerce API')
     .setDescription('API documentation for the E-Commerce application')
     .setVersion('1.0')
-    .addTag('User', 'user management')
+    .addTag('Authentication', 'User authentication and authorization endpoints')
+    .addTag('Users', 'User management endpoints')
+    .addTag('Categories', 'Product category management endpoints')
+    .addTag('Products', 'Product management endpoints')
+    .addTag('Product Images', 'Product image management endpoints')
     .addBearerAuth()
     .build();
 
